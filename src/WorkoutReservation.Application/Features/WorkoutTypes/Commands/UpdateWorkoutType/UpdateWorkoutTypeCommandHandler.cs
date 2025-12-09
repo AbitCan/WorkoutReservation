@@ -43,8 +43,7 @@ internal sealed class UpdateWorkoutTypeCommandHandler : IRequestHandler<UpdateWo
         var instructors = await _instructorRepository
             .GetAllAsync(instructor => request.Instructors.Contains(instructor.Id), false, token);
 
-        workoutType.Update(request.Name, request.Description, request.Intensity, instructors, tags);
-        workoutType.Price = request.Price;
+        workoutType.Update(request.Name, request.Description, request.Intensity, instructors, tags, request.Price);
 
         await _workoutTypeRepository.UpdateAsync(workoutType, token);
         return Unit.Value;

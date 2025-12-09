@@ -48,11 +48,12 @@ public sealed class WorkoutType : Entity
     }
     
     public void Update(string name, string description, WorkoutIntensity intensity, 
-        List<Instructor> instructors, List<WorkoutTypeTag> tags)
+        List<Instructor> instructors, List<WorkoutTypeTag> tags, decimal price)
     {
         Name = name;
         Description = description;
         Intensity = intensity;
+        Price = price;
         AddTags(tags);
         AddInstructors(instructors);
         Valid();
