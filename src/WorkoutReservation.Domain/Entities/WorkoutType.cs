@@ -2,6 +2,7 @@
 using WorkoutReservation.Domain.Enums;
 using WorkoutReservation.Domain.Exceptions;
 using WorkoutReservation.Shared.Exceptions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkoutReservation.Domain.Entities;
 
@@ -10,6 +11,8 @@ public sealed class WorkoutType : Entity
     public int Id { get; internal set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal Price { get; set; }
     public WorkoutIntensity Intensity { get; private set; }
     public ICollection<Instructor> Instructors { get; private set; } = new List<Instructor>();
     public ICollection<WorkoutTypeTag> WorkoutTypeTags { get; private set; } = new List<WorkoutTypeTag>();

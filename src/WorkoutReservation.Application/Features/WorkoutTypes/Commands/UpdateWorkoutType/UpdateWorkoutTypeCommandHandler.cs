@@ -7,7 +7,7 @@ using WorkoutReservation.Domain.Enums;
 
 namespace WorkoutReservation.Application.Features.WorkoutTypes.Commands.UpdateWorkoutType;
 
-public record UpdateWorkoutTypeCommand(int Id, string Name, string Description, WorkoutIntensity Intensity, 
+public record UpdateWorkoutTypeCommand(int Id, string Name, string Description, WorkoutIntensity Intensity, decimal Price,
     List<int> WorkoutTypeTags, List<int> Instructors) : IRequest;
 
 internal sealed class UpdateWorkoutTypeCommandHandler : IRequestHandler<UpdateWorkoutTypeCommand>
@@ -44,7 +44,8 @@ internal sealed class UpdateWorkoutTypeCommandHandler : IRequestHandler<UpdateWo
             .GetAllAsync(instructor => request.Instructors.Contains(instructor.Id), false, token);
 
         workoutType.Update(request.Name, request.Description, request.Intensity, instructors, tags);
-        
+        workoutType.Price = request.Price;
+
         await _workoutTypeRepository.UpdateAsync(workoutType, token);
         return Unit.Value;
     }
